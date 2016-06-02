@@ -1,0 +1,134 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/estilo.css">
+		<script src="js/main.js"></script>
+	</head>
+	<body onload="load()">
+		<title>Game</title>
+		<div class="container">
+			<div class="canvas">
+				<canvas id="box" width="1330" height="500"></canvas>
+				<button onclick="play()" class="button">Play</button>
+				<button onclick="playAgain()" class="button">Reset</button>
+				<div class="stats">
+					<div class="elementBox">
+						<div class="upBox" id="secondsBox">0.0 s</font></div>
+						<div class="downBox" id="secondsName">Seconds</div>
+					</div>
+					<div class="elementBox">
+						<div class="upBox" id="healthBox">hp</div>
+						<div class="downBox" id="healthName">Health</div>				
+					</div>
+					<div class="elementBox">
+						<div class="upBox" id="moneyBox">$$</div>
+						<div class="downBox" id="moneyName"> Money</div>
+					</div>
+				</div>
+				<div class="upgrades">
+					<div class="upgradeTitle"><div style="margin-top: 10px;">Upgrades</div></div>
+					<div class="upgradeCategory"><div style="margin-top: 18px;">Stats</div></div>
+					<div class="upgradeCategory"><div style="margin-top: 18px;">Canon</div></div>
+					<div class="upgradeCategory"><div style="margin-top: 18px;">Other</div></div>
+					
+					<div class="upgrade">
+						<div class="textBox"><div style="margin-top: 3;">Aumenta a vida da nave em 20</div></div>
+						<div class="quantidade"><div style="margin-top: 22px;" id="increaseHealthQuantity">0</div></div>
+						<div class="priceBox"><div style="margin-top: 12;" id="increaseHealthPrice">150,00</div></div>
+						<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%" style="margin-top: 3px;"></div>
+					</div>
+					<div class="upgrade">
+						<div class="textBox"><div style="margin-top: 3;">Aumenta o núm- ero de canhões da nave</div></div>
+						<div class="quantidade"><div style="margin-top: 22px;" id="increaseCannonQuantity">0</div></div>
+						<div class="priceBox"><div style="margin-top: 12;" id="increaseCannonPrice">550,00</div></div>
+						<div class="comprar" onclick="moreCannons()"><img src="imagens/plus.png" width="80%" height="80%" style="margin-top: 3px;"></div>
+					</div>
+					<div class="upgrade">
+						<div class="textBox"><div style="margin-top: 3;">Not avaliable</div></div>
+						<div class="quantidade"><div style="margin-top: 22px;" id="increaseHealthQuantity">--</div></div>
+						<div class="priceBox"><div style="margin-top: 12;" id="increaseHealthPrice">--</div></div>
+						<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%" style="margin-top: 3px;"></div>
+					</div>
+					
+					<div class="upgrade">
+						<div class="textBox"><div style="margin-top: 3;">Aumenta a velocidade da nave em 1</div></div>
+						<div class="quantidade"><div style="margin-top: 22px;" id="increaseSpeedQuantity">0</div></div>
+						<div class="priceBox"><div style="margin-top: 12;" id="inscreaseSpeedPrice">150,00</div></div>
+						<div class="comprar" onclick="increaseSpeed()"><img src="imagens/plus.png" width="80%" height="80%" style="margin-top: 3px;"></div>
+					</div>
+					<div class="upgrade">
+						<div class="textBox"><div style="margin-top: 3;">Not avaliable</div></div>
+						<div class="quantidade"><div style="margin-top: 22px;" id="increaseHealthQuantity">--</div></div>
+						<div class="priceBox"><div style="margin-top: 12;" id="increaseHealthPrice">--</div></div>
+						<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%" style="margin-top: 3px;"></div>
+					</div>
+					<div class="upgrade">
+						<div class="textBox"><div style="margin-top: 3;">Not avaliable</div></div>
+						<div class="quantidade"><div style="margin-top: 22px;" id="increaseHealthQuantity">--</div></div>
+						<div class="priceBox"><div style="margin-top: 12;" id="increaseHealthPrice">--</div></div>
+						<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%" style="margin-top: 3px;"></div>
+					</div>
+			
+					<div class="upgrade">
+						<div class="textBox"><div style="margin-top: 3;">Diminui o tamanho da nave em 10</div></div>
+						<div class="quantidade"><div style="margin-top: 22px;" id="makeSmallQuantity">0</div></div>
+						<div class="priceBox"><div style="margin-top: 12;" id="makeSmallPrice">500,00</div></div>
+						<div class="comprar" onclick="makeSmall()"><img src="imagens/plus.png" width="80%" height="80%" style="margin-top: 3px;"></div>
+					</div>
+					<div class="upgrade">
+						<div class="textBox"><div style="margin-top: 3;">Not avaliable</div></div>
+						<div class="quantidade"><div style="margin-top: 22px;" id="increaseHealthQuantity">--</div></div>
+						<div class="priceBox"><div style="margin-top: 12;" id="increaseHealthPrice">--</div></div>
+						<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%" style="margin-top: 3px;"></div>
+					</div>
+					<div class="upgrade">
+						<div class="textBox"><div style="margin-top: 3;">Not avaliable</div></div>
+						<div class="quantidade"><div style="margin-top: 22px;" id="increaseHealthQuantity">--</div></div>
+						<div class="priceBox"><div style="margin-top: 12;" id="increaseHealthPrice">--</div></div>
+						<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%" style="margin-top: 3px;"></div>
+					</div>
+					
+					<div class="upgrade">
+						<div class="textBox"><div style="margin-top: 3;">Aumenta o heal do container em 10</div></div>
+						<div class="quantidade"><div style="margin-top: 22px;" id="increaseHealingQuantity">0</div></div>
+						<div class="priceBox"><div style="margin-top: 12;" id="increaseHealingPrice">300,00</div></div>
+						<div class="comprar" onclick="increaseHealing()"><img src="imagens/plus.png" width="80%" height="80%" style="margin-top: 3px;"></div>
+					</div>
+					<div class="upgrade">
+						<div class="textBox"><div style="margin-top: 3;">Not avaliable</div></div>
+						<div class="quantidade"><div style="margin-top: 22px;" id="increaseHealthQuantity">-</div></div>
+						<div class="priceBox"><div style="margin-top: 12;" id="increaseHealthPrice">--</div></div>
+						<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%" style="margin-top: 3px;"></div>
+					</div>
+					<div class="upgrade">
+						<div class="textBox"><div style="margin-top: 3;">Not avaliable</div></div>
+						<div class="quantidade"><div style="margin-top: 22px;" id="increaseHealthQuantity">--</div></div>
+						<div class="priceBox"><div style="margin-top: 12;" id="increaseHealthPrice">--</div></div>
+						<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%" style="margin-top: 3px;"></div>
+					</div>
+				</div>
+				<h1 id="gameOver">Game Over</h1>
+				<h4 id="survived"></h4>
+				<audio id="pew">
+					<source src="sounds/pew.mp3" type="audio/mp3">  
+				</audio>
+				<audio id="bgMusic" loop>
+					<source src="sounds/bgMusic.mp3" type="audio/mp3">  
+				</audio>
+				<audio id="hitSound">
+					<source src="sounds/hitSound.mp3" type="audio/mp3">  
+				</audio>
+				<audio id="hitSound2">
+					<source src="sounds/hitSound2.mp3" type="audio/mp3">  
+				</audio>
+				<audio id="hitSound3">
+					<source src="sounds/hitSound3.mp3" type="audio/mp3">  
+				</audio>
+				<audio id="healingSound">
+					<source src="sounds/healingSound.mp3" type="audio/mp3">  
+				</audio>
+			</div>
+		</div>
+		
+	</body>
+</html>

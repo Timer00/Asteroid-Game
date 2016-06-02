@@ -1,0 +1,15 @@
+-Aumenta volume da música de fundo.
+-Upgrades:
+  -Aumentar o número de tiros
+  -Tiros mais rápido que da knockback nos meteoros
+  -Aumentar vida base
+  -Aumentar move speed
+  -Aumentar o quanto de vida as capsulas dão
+  -Dar armadura
+  -Diminuir o player
+-Fazer uma função para criação de upgrades
+-Cápsula de vida faz um efeito de rápida mudança de cor na nave
+-Botão play não aumenta velocidade
+-Invert colors and make the game different like a event
+-Fazer efeitos de luz com o gradient posicionado em lugar e o quadrado de onde ele é aplicável no player, assim se o player
+passa perto ele faz um efeito de luz.
