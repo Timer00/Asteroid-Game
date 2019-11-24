@@ -1,4 +1,5 @@
-# Asteroid-Game
+![Cover photo](https://i.imgur.com/IcuFFZ1.png)
+# Asteroids
 Simple asteroid avoidance game
 
 Open "Play" to start playing!
