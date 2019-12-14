@@ -14,178 +14,46 @@
 		</div>
 
 
-		<div class="upgrades">
-			<div class="upgradeTitle">
-				<div style="margin-top: 10px;">Upgrades</div>
-			</div>
-			<div class="upgradeCategory">
-				<div style="margin-top: 18px;">Stats</div>
-			</div>
-			<div class="upgradeCategory">
-				<div style="margin-top: 18px;">Cannon</div>
-			</div>
-			<div class="upgradeCategory">
-				<div style="margin-top: 18px;">Other</div>
-			</div>
-
-			<div class="upgrade">
-				<div class="textBox">
-					<div style="margin-top: 3;">Increases ship's health by 20</div>
-				</div>
-				<div class="quantidade">
-					<div style="margin-top: 22px;" id="increaseHealthQuantity">0</div>
-				</div>
-				<div class="priceBox">
-					<div style="margin-top: 12;" id="increaseHealthPrice">150,00</div>
-				</div>
-				<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%"
-																	 style="margin-top: 3px;"></div>
+		<div class="upgrades ship">
+			<div class="img">
+				<h3>Ship Upgrades</h3>
+				<img src="./imagens/ship.png" alt=""/>
 			</div>
 			<div class="upgrade">
-				<div class="textBox">
-					<div style="margin-top: 3;">+1 cannon for the ship</div>
-				</div>
-				<div class="quantidade">
-					<div style="margin-top: 22px;" id="increaseCannonQuantity">0</div>
-				</div>
-				<div class="priceBox">
-					<div style="margin-top: 12;" id="increaseCannonPrice">550,00</div>
-				</div>
-				<div class="comprar" onclick="moreCannons()"><img src="imagens/plus.png" width="80%" height="80%"
-																  style="margin-top: 3px;"></div>
+				<div class="price" onclick="increaseHealth()"><h4>150$</h4></div>
+				<div class="icon"><img src="imagens/heart.png" alt=""/></div>
+				<div class="description"><p>+20 HP</p></div>
 			</div>
 			<div class="upgrade">
-				<div class="textBox">
-					<div style="margin-top: 3;">Not avaliable</div>
-				</div>
-				<div class="quantidade">
-					<div style="margin-top: 22px;" id="increaseHealthQuantity">--</div>
-				</div>
-				<div class="priceBox">
-					<div style="margin-top: 12;" id="increaseHealthPrice">--</div>
-				</div>
-				<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%"
-																	 style="margin-top: 3px;"></div>
-			</div>
-
-			<div class="upgrade">
-				<div class="textBox">
-					<div style="margin-top: 3;">Increases ship's speed by 1</div>
-				</div>
-				<div class="quantidade">
-					<div style="margin-top: 22px;" id="increaseSpeedQuantity">0</div>
-				</div>
-				<div class="priceBox">
-					<div style="margin-top: 12;" id="inscreaseSpeedPrice">150,00</div>
-				</div>
-				<div class="comprar" onclick="increaseSpeed()"><img src="imagens/plus.png" width="80%" height="80%"
-																	style="margin-top: 3px;"></div>
+				<div class="price" onclick="increaseSpeed()"><h4>150$</h4></div>
+				<div class="icon"><img src="imagens/speed.png" alt=""/></div>
+				<div class="description"><p>+1 Speed</p></div>
 			</div>
 			<div class="upgrade">
-				<div class="textBox">
-					<div style="margin-top: 3;">Not avaliable</div>
-				</div>
-				<div class="quantidade">
-					<div style="margin-top: 22px;" id="increaseHealthQuantity">--</div>
-				</div>
-				<div class="priceBox">
-					<div style="margin-top: 12;" id="increaseHealthPrice">--</div>
-				</div>
-				<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%"
-																	 style="margin-top: 3px;"></div>
+				<div class="price" onclick="makeSmall()"><h4>500$</h4></div>
+				<div class="icon"><img src="imagens/shrink.png" alt=""/></div>
+				<div class="description"><p>-10 size</p></div>
 			</div>
 			<div class="upgrade">
-				<div class="textBox">
-					<div style="margin-top: 3;">Not avaliable</div>
-				</div>
-				<div class="quantidade">
-					<div style="margin-top: 22px;" id="increaseHealthQuantity">--</div>
-				</div>
-				<div class="priceBox">
-					<div style="margin-top: 12;" id="increaseHealthPrice">--</div>
-				</div>
-				<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%"
-																	 style="margin-top: 3px;"></div>
-			</div>
-
-			<div class="upgrade">
-				<div class="textBox">
-					<div style="margin-top: 3;">Shrinks the ship's size by 10</div>
-				</div>
-				<div class="quantidade">
-					<div style="margin-top: 22px;" id="makeSmallQuantity">0</div>
-				</div>
-				<div class="priceBox">
-					<div style="margin-top: 12;" id="makeSmallPrice">500,00</div>
-				</div>
-				<div class="comprar" onclick="makeSmall()"><img src="imagens/plus.png" width="80%" height="80%"
-																style="margin-top: 3px;"></div>
+				<div class="price" onclick="moreCannons()"><h4>550$</h4></div>
+				<div class="icon"><img src="imagens/canon.png" alt=""/></div>
+				<div class="description"><p>+1 Canon</p></div>
 			</div>
 			<div class="upgrade">
-				<div class="textBox">
-					<div style="margin-top: 3;">Not avaliable</div>
-				</div>
-				<div class="quantidade">
-					<div style="margin-top: 22px;" id="increaseHealthQuantity">--</div>
-				</div>
-				<div class="priceBox">
-					<div style="margin-top: 12;" id="increaseHealthPrice">--</div>
-				</div>
-				<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%"
-																	 style="margin-top: 3px;"></div>
+				<div class="price" onclick="increaseAttackSpeed()"><h4>250$</h4></div>
+				<div class="icon"><img src="imagens/canon.png" alt=""/></div>
+				<div class="description"><p>+1 Attack Speed</p></div>
+			</div>
+		</div>
+		<div class="upgrades healing">
+			<div class="img">
+				<h3>Healing Upgrades</h3>
+				<img src="./imagens/health%20container.png" alt=""/>
 			</div>
 			<div class="upgrade">
-				<div class="textBox">
-					<div style="margin-top: 3;">Not avaliable</div>
-				</div>
-				<div class="quantidade">
-					<div style="margin-top: 22px;" id="increaseHealthQuantity">--</div>
-				</div>
-				<div class="priceBox">
-					<div style="margin-top: 12;" id="increaseHealthPrice">--</div>
-				</div>
-				<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%"
-																	 style="margin-top: 3px;"></div>
-			</div>
-
-			<div class="upgrade">
-				<div class="textBox">
-					<div style="margin-top: 3;">Increases container healing by 10</div>
-				</div>
-				<div class="quantidade">
-					<div style="margin-top: 22px;" id="increaseHealingQuantity">0</div>
-				</div>
-				<div class="priceBox">
-					<div style="margin-top: 12;" id="increaseHealingPrice">300,00</div>
-				</div>
-				<div class="comprar" onclick="increaseHealing()"><img src="imagens/plus.png" width="80%" height="80%"
-																	  style="margin-top: 3px;"></div>
-			</div>
-			<div class="upgrade">
-				<div class="textBox">
-					<div style="margin-top: 3;">Not avaliable</div>
-				</div>
-				<div class="quantidade">
-					<div style="margin-top: 22px;" id="increaseHealthQuantity">-</div>
-				</div>
-				<div class="priceBox">
-					<div style="margin-top: 12;" id="increaseHealthPrice">--</div>
-				</div>
-				<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%"
-																	 style="margin-top: 3px;"></div>
-			</div>
-			<div class="upgrade">
-				<div class="textBox">
-					<div style="margin-top: 3;">Not avaliable</div>
-				</div>
-				<div class="quantidade">
-					<div style="margin-top: 22px;" id="increaseHealthQuantity">--</div>
-				</div>
-				<div class="priceBox">
-					<div style="margin-top: 12;" id="increaseHealthPrice">--</div>
-				</div>
-				<div class="comprar" onclick="increaseHealth()"><img src="imagens/plus.png" width="80%" height="80%"
-																	 style="margin-top: 3px;"></div>
+				<div class="price" onclick="increaseHealing()"><h4>500$</h4></div>
+				<div class="icon"><img src="imagens/heart.png" alt=""/></div>
+				<div class="description"><p>+10 Healing</p></div>
 			</div>
 		</div>
 
@@ -196,7 +64,7 @@
 
 	<div class="stats">
 		<div class="elementBox">
-			<div class="upBox" id="secondsBox">0.0 s</font></div>
+			<div class="upBox" id="secondsBox">0.0 s</div>
 			<div class="downBox" id="secondsName">Seconds</div>
 		</div>
 		<div class="elementBox">

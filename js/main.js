@@ -83,7 +83,7 @@ function load() {
             ctx.fillStyle = this.color;
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }
-    }
+    };
 
     Bullet = [];
 
@@ -140,6 +140,7 @@ function load() {
         this.makeSmall = 500;
         this.increaseHealing = 300;
         this.moreCannons = 550;
+        this.increaseAttackSPeed = 200;
     }
 
     prices = new price();
@@ -150,6 +151,7 @@ function load() {
         this.makeSmall = 0;
         this.increaseHealing = 0;
         this.moreCannons = 0;
+        this.increaseAttackSPeed = 0;
     }
 
     quantities = new quantity();
@@ -214,6 +216,9 @@ function playAgain() {
 //	-------------Hide gameOver text-------------
     let gameOver = document.getElementsByClassName('gameOver')[0];
     gameOver.style.display = "none";
+    for (let el of document.getElementsByClassName('upgrades')){
+        el.style.display = "none";
+    }
 //	-----Players reset-----
     if (players.health <= 0) {
         intervalo2 = setInterval(timerSeconds, 100);
@@ -248,8 +253,9 @@ function increaseHealth() {
         money -= prices.baseHealth;
         prices.baseHealth += Math.floor((prices.baseHealth * 0.5));
         quantities.baseHealth++;
-        document.getElementById('increaseHealthQuantity').innerHTML = quantities.baseHealth;
-        document.getElementById('increaseHealthPrice').innerHTML = prices.baseHealth + ",00";
+
+        let element = document.getElementsByClassName('upgrades')[0].getElementsByClassName('upgrade')[0];
+        element.getElementsByTagName('h4')[0].innerHTML = prices.baseHealth + "$";
     }
 }
 function increaseSpeed() {
@@ -258,8 +264,9 @@ function increaseSpeed() {
         money -= prices.increaseSpeed;
         prices.increaseSpeed += Math.floor((prices.increaseSpeed * 0.5));
         quantities.increaseSpeed++;
-        document.getElementById('increaseSpeedQuantity').innerHTML = quantities.increaseSpeed;
-        document.getElementById('inscreaseSpeedPrice').innerHTML = prices.increaseSpeed + ",00";
+
+        let element = document.getElementsByClassName('upgrades')[0].getElementsByClassName('upgrade')[1];
+        element.getElementsByTagName('h4')[0].innerHTML = prices.increaseSpeed + "$";
     }
 }
 function makeSmall() {
@@ -270,10 +277,11 @@ function makeSmall() {
             money -= prices.makeSmall;
             prices.makeSmall += Math.floor((prices.makeSmall * 1));
             quantities.makeSmall++;
-            document.getElementById('makeSmallQuantity').innerHTML = quantities.makeSmall;
-            document.getElementById('makeSmallPrice').innerHTML = prices.makeSmall + ",00";
-            if (quantities.makeSmall == 4) {
-                document.getElementById('makeSmallPrice').innerHTML = "max";
+
+            let element = document.getElementsByClassName('upgrades')[0].getElementsByClassName('upgrade')[2];
+            element.getElementsByTagName('h4')[0].innerHTML = prices.makeSmall + "$";
+            if (quantities.makeSmall === 4) {
+                element.getElementsByTagName('h4')[0].innerHTML = "max";
             }
         }
     }
@@ -285,8 +293,9 @@ function increaseHealing() {
         money -= prices.increaseHealing;
         prices.increaseHealing += Math.floor((prices.increaseHealing * 0.5));
         quantities.increaseHealing++;
-        document.getElementById('increaseHealingQuantity').innerHTML = quantities.increaseHealing;
-        document.getElementById('increaseHealingPrice').innerHTML = prices.increaseHealing + ",00";
+
+        let element = document.getElementsByClassName('upgrades')[1].getElementsByClassName('upgrade')[0];
+        element.getElementsByTagName('h4')[0].innerHTML = prices.increaseHealing + "$";
     }
 }
 //							||Cannons||
@@ -298,14 +307,33 @@ function moreCannons() {
             money -= prices.moreCannons;
             prices.moreCannons += Math.floor((prices.moreCannons * 0.5));
             quantities.moreCannons++;
-            document.getElementById('increaseCannonQuantity').innerHTML = quantities.moreCannons;
-            document.getElementById('increaseCannonPrice').innerHTML = prices.moreCannons + ",00";
+
+            let element = document.getElementsByClassName('upgrades')[0].getElementsByClassName('upgrade')[3];
+            element.getElementsByTagName('h4')[0].innerHTML = prices.moreCannons + "$";
+
             if (cannons2) {
-                document.getElementById('increaseCannonPrice').innerHTML = "max";
+                element.getElementsByTagName('h4')[0].innerHTML = "max";
             }
         }
     }
 }
+function increaseAttackSpeed() {
+    if (money >= prices.increaseAttackSPeed) {
+        if (quantities.increaseAttackSPeed < 20) {
+            shotSpeed -= 1;
+            money -= prices.increaseAttackSPeed;
+            prices.increaseAttackSPeed += Math.floor(prices.increaseAttackSPeed);
+            quantities.increaseAttackSPeed++;
+
+            let element = document.getElementsByClassName('upgrades')[0].getElementsByClassName('upgrade')[4];
+            element.getElementsByTagName('h4')[0].innerHTML = prices.increaseAttackSPeed + "$";
+            if (quantities.increaseAttackSPeed === 19) {
+                element.getElementsByTagName('h4')[0].innerHTML = "max";
+            }
+        }
+    }
+}
+
 function animation() {
 //	------Canvas clear------
     ctx.fillStyle = "white";
@@ -432,6 +460,9 @@ function animation() {
 //		                       ||Show gameOver text||
         let gameOver = document.getElementsByClassName('gameOver')[0];
         gameOver.style.display = "block";
+        for (let el of document.getElementsByClassName('upgrades')){
+            el.style.display = "flex";
+        }
 
         if (timer < 50){
             gameOver.getElementsByTagName('h1')[0].innerHTML = "Game Over";
@@ -440,7 +471,6 @@ function animation() {
             gameOver.getElementsByTagName('h1')[0].innerHTML = "-Play Again-";
         }
         gameOver.getElementsByTagName('h4')[0].innerHTML = "survived " + secondz + " seconds";
-        document.getElementsByClassName('stats')[0].style.visibility = "hidden";
 
         players.y = -600;
         clearInterval(intervalo2);

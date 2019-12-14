@@ -6,6 +6,11 @@ html, body, #root {
     background-color: black;
     color: white;
     font-family: "Courier New", sans-serif;
+
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .gameOver {
@@ -16,17 +21,12 @@ html, body, #root {
 
 .gameOver > h1 {
     color: red;
+    font-size: 3vw;
 }
 
 .gameOver > h4 {
     color: gray;
-}
-
-canvas {
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    font-size: 1.5vw;
 }
 
 .UI {
@@ -69,7 +69,7 @@ canvas {
     position: absolute;
     width: 216px;
     height: 50px;
-    bottom: 5%;
+    top: 5%;
     right: 5%;
     visibility: hidden;
 }
@@ -103,81 +103,107 @@ canvas {
 }
 
 .upgrades {
-    position: relative;
-    top: 502px;
-    left: 380px;
-    margin: 0 5px 0 5px;
-    width: 432px;
-    height: 510px;
-    background-color: black;
+    width: 20%;
+    max-width: 200px;
+    height: auto;
     display: none;
-}
+    flex-direction: column;
 
-.upgradeTitle {
-    position: relative;
-    float: left;
-    width: 432px;
-    height: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+
     color: black;
-    text-align: center;
-    font-weight: bold;
-    background-color: #f46800;
+}
+.ship {
+    left: 10%;
+}
+.healing {
+    right: 10%;
 }
 
-.upgradeCategory {
-    position: relative;
-    float: left;
-    margin: 1px 1px 1px 1px;
-    width: 140px;
-    height: 60px;
-    color: white;
+.upgrades > .img {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    justify-content: center;
     text-align: center;
-    background-color: black;
+    align-content: center;
+}
+.upgrades > .img > h3 {
+    text-align: center;
+    margin-bottom: 7%;
+    font-size: 2.5vw;
+    max-font-size: 26px;
+    white-space: nowrap;
+}
+.upgrades > .img > img {
+    width: 80%;
+    height: auto;
 }
 
 .upgrade {
-    position: relative;
-    float: left;
-    margin: 0 1px 1px 1px;
-    width: 140px;
-    height: 100px;
-    color: black;
-    font-size: 12px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    margin-top: 10%;
+}
+.upgrade > div {
+    width: 33.3%;
+}
+.price {
+    display: flex;
+    align-items: center;
+    margin-right: 2%;
+    cursor: pointer;
+}
+.price > h4 {
     text-align: center;
-    background-color: white;
+    border: solid black 2px;
 }
 
-.textBox {
-    position: relative;
-    float: left;
-    width: 100px;
-    height: 60px;
-    text-align: center;
+.icon {
+    display: flex;
+    align-items: center;
+}
+.icon > img {
+    width: 100%;
+    height: auto;
 }
 
-.quantidade {
-    position: relative;
-    float: left;
-    width: 40px;
-    height: 60px;
-    text-align: center;
-    background-color: gray;
+.description {
+    font-size: 1.5vw;
+    max-font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-left: 4%;
+}
+.description > p {
+    white-space: nowrap;
 }
 
-.priceBox {
-    position: relative;
-    float: left;
-    width: 100px;
-    height: 40px;
-    text-align: center;
-    background-color: gray;
+@media (max-width: 1040px) {
+    .upgrades > #img > h3 {
+        font-size: 2.5vw;
+    }
+    .price > h4 {
+        font-size: 2vw;
+    }
+    .description {
+        font-size: 1.5vw;
+    }
 }
 
-.comprar {
-    position: relative;
-    float: left;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    background-color: green;
+@media (min-width: 1040px) {
+    .upgrades > #img > h3 {
+        font-size: 26px;
+    }
+    .price > h4 {
+        font-size: 20px;
+    }
+    .description {
+        font-size: 15px;
+    }
 }
