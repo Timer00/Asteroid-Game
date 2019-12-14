@@ -1,4 +1,4 @@
-var canvas, ctx, player, players, Player, keyDown, keyUp, keyLeft, keyRight, intervalo, shipCannon, distance, bullet, Bullet, bullets, tiros, timer, meteor, seconds, secondz, money, intervalo2, soundAdder, soundAdder2, soundAdder3, canPlay, soundRandom, cannons2, shipCannon2, adder, adder2, healingEffect;
+let canvas, ctx, player, players, Player, keyDown, keyUp, keyLeft, keyRight, intervalo, shipCannon, distance, bullet, Bullet, bullets, tiros, timer, asteroid, asteroidAmmount, seconds, secondz, money, intervalo2, soundAdder, soundAdder2, soundAdder3, canPlay, soundRandom, cannons2, shipCannon2, adder, adder2, healingEffect, shoot;
 keyUp = 87;
 keyDown = 83;
 keyLeft = 65;
@@ -12,13 +12,20 @@ soundAdder2 = 0;
 soundAdder3 = 0;
 canPlay = true;
 cannons2 = false;
+shotSpeed = 20;
 gradientAdder = 0;
 gradientAdder2 = 0;
 healingEffect = false;
+shoot = false;
+
 function load() {
 //	----------Canvas declarations-----------
     canvas = document.getElementById('box');
     ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    asteroidAmmount = Math.round(document.body.clientWidth * document.body.clientHeight / 50000);
 //	---------------Objects-------------
     function cannon(x, y, width, height, color) {
         this.x = x;
@@ -65,7 +72,7 @@ function load() {
     }
 
     players = new player(200, 250, 50, 50, 5, 50, 50, 1);
-    function bullet(x, y, width, height, speed) {
+    bullet = function(x, y, width, height, speed) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -80,7 +87,7 @@ function load() {
 
     Bullet = [];
 
-    meteor = function (x, y, width, height, speed, health, color, damage, resets) {
+    asteroid = function (x, y, width, height, speed, health, color, damage, resets) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -96,9 +103,9 @@ function load() {
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }
     };
-    Meteor = [];
-    for (var z = 0; z < 15; z++) {
-        Meteor.push(new meteor(Math.random() * canvas.width + canvas.width, Math.random() * canvas.height,
+    Asteroid = [];
+    for (var z = 0; z < asteroidAmmount; z++) {
+        Asteroid.push(new asteroid(Math.random() * canvas.width + canvas.width, Math.random() * canvas.height,
             Math.random() * 30 + 15, Math.random() * 30 + 15, Math.random() * 10 + 3, Math.random() * 2, "gray", 1, false));
     }
 
@@ -149,48 +156,34 @@ function load() {
 //	----------------Key detection-------------------
 //				||Mouse||
     canvas.onmousedown = function () {
-        if (players.health > 0) {
-            tiros++;
-            Bullet.push(new bullet(shipCannon.x, shipCannon.y, 5, players.height / 10, 10));
-            if (cannons2) {
-                Bullet.push(new bullet(shipCannon2.x, shipCannon2.y, 5, players.height / 10, 10));
-            }
-            shootSound = document.getElementById('pew');
-            //shootSound.volume = 0.15;
-            shootSound.play();
-            shootSound.volume = 0.4;
-            if (soundAdder >= 1) {
-                shootSound.pause();
-                shootSound.currentTime = 0;
-                shootSound.play();
-                soundAdder -= 1;
-            }
-            soundAdder++;
-        }
+        shoot = true;
+    };
+    canvas.onmouseup = () => {
+      shoot = false;
     };
 //					||keyboard||
     window.addEventListener("keydown", checkKeyDown, false);
     function checkKeyDown(event) {
-        if (event.keyCode == keyUp) {
+        if (event.keyCode === keyUp) {
             players.up = true;
-        } else if (event.keyCode == keyDown) {
+        } else if (event.keyCode === keyDown) {
             players.down = true;
-        } else if (event.keyCode == keyLeft) {
+        } else if (event.keyCode === keyLeft) {
             players.left = true;
-        } else if (event.keyCode == keyRight) {
+        } else if (event.keyCode === keyRight) {
             players.right = true;
         }
     }
 
     window.addEventListener("keyup", checkKeyUp, false);
     function checkKeyUp(event) {
-        if (event.keyCode == keyUp) {
+        if (event.keyCode === keyUp) {
             players.up = false;
-        } else if (event.keyCode == keyDown) {
+        } else if (event.keyCode === keyDown) {
             players.down = false;
-        } else if (event.keyCode == keyLeft) {
+        } else if (event.keyCode === keyLeft) {
             players.left = false;
-        } else if (event.keyCode == keyRight) {
+        } else if (event.keyCode === keyRight) {
             players.right = false;
         }
     }
@@ -202,18 +195,25 @@ function play() {
         intervalo2 = setInterval(timerSeconds, 100);
         bgMusic.play();
         bgMusic.volume = 0.35;
+        document.getElementsByClassName('menu')[0].style.display = "none";
+        document.getElementsByClassName('stats')[0].style.visibility = "visible";
+    } else {
+        canPlay = true;
+        playAgain();
     }
     canPlay = false;
 }
+
 function timerSeconds() {
     seconds++;
-    document.getElementById('secondsBox').innerHTML = seconds / 10 + " s"
+    document.getElementById('secondsBox').innerHTML = seconds / 10 + " s";
 }
+
 function playAgain() {
     adder = 0;
 //	-------------Hide gameOver text-------------
-    document.getElementById('gameOver').style.visibility = "hidden";
-    document.getElementById('survived').style.visibility = "hidden";
+    let gameOver = document.getElementsByClassName('gameOver')[0];
+    gameOver.style.display = "none";
 //	-----Players reset-----
     if (players.health <= 0) {
         intervalo2 = setInterval(timerSeconds, 100);
@@ -221,16 +221,15 @@ function playAgain() {
     players.health = players.baseHealth;
     players.x = 200;
     players.y = 250;
-//	----Meteor reset----
-    Meteor.length = 15;
-    for (var h = 0; h < Meteor.length; h++) {
-        meteors = Meteor[h];
-        meteors.x = Math.random() * canvas.width + canvas.width;
-        meteors.y = Math.random() * canvas.height;
-        meteors.width = Math.random() * 30 + 15;
-        meteors.height = Math.random() * 30 + 15;
-        meteors.speed = Math.random() * 10 + 3;
-        meteors.health = Math.random() * 3;
+//	----Asteroid reset----
+    for (var h = 0; h < asteroidAmmount; h++) {
+        asteroids = Asteroid[h];
+        asteroids.x = Math.random() * canvas.width + canvas.width;
+        asteroids.y = Math.random() * canvas.height;
+        asteroids.width = Math.random() * 30 + 15;
+        asteroids.height = Math.random() * 30 + 15;
+        asteroids.speed = Math.random() * 10 + 3;
+        asteroids.health = Math.random() * 3;
     }
 //	-Timer reset-
     timer = 0;
@@ -279,11 +278,10 @@ function makeSmall() {
         }
     }
 }
-//							|Container|	
+//							|Container|
 function increaseHealing() {
     if (money >= prices.increaseHealing) {
         lifeContainer.healing += 10;
-        console.log(lifeContainer.healing);
         money -= prices.increaseHealing;
         prices.increaseHealing += Math.floor((prices.increaseHealing * 0.5));
         quantities.increaseHealing++;
@@ -312,12 +310,12 @@ function animation() {
 //	------Canvas clear------
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-//	                  |Health container|	
-//	--Meteor increase--
+//	                  |Health container|
+//	--Asteroid increase--
     timer++;
     if (timer == 100) {
         timer = 0;
-        Meteor.push(new meteor(Math.random() * canvas.width + canvas.width, Math.random() * canvas.height,
+        Asteroid.push(new asteroid(Math.random() * canvas.width + canvas.width, Math.random() * canvas.height,
             Math.random() * 30 + 15, Math.random() * 30 + 15, Math.random() * 10 + 3, Math.random() * 2, "gray", 1));
     }
 //	-----------Key events---------
@@ -333,6 +331,27 @@ function animation() {
     if (players.left) {
         players.x -= players.speed;
     }
+
+    if (players.health > 0 && shoot) {
+        if (timer % shotSpeed === 0) {
+            tiros++;
+            Bullet.push(new bullet(shipCannon.x, shipCannon.y, 5, players.height / 10, 10));
+            if (cannons2) {
+                Bullet.push(new bullet(shipCannon2.x, shipCannon2.y, 5, players.height / 10, 10));
+            }
+            shootSound = document.getElementById('pew');
+            //shootSound.volume = 0.15;
+            shootSound.play();
+            shootSound.volume = 0.4;
+            if (soundAdder >= 1) {
+                shootSound.pause();
+                shootSound.currentTime = 0;
+                shootSound.play();
+                soundAdder -= 1;
+            }
+            soundAdder++;
+        }
+    }
 //	-----------Wall colision----------
     if (players.y < 0) {
         players.y += players.speed;
@@ -346,7 +365,7 @@ function animation() {
     if (players.x > 300 - players.width) {
         players.x -= players.speed;
     }
-//	----------Life container stuff------------	
+//	----------Life container stuff------------
     lifeContainer.drawn();
     lifeContainer.x -= lifeContainer.speed;
 //					||Player colision||
@@ -411,9 +430,18 @@ function animation() {
         secondz = seconds / 10;
     } else {
 //		                       ||Show gameOver text||
-        document.getElementById('gameOver').style.visibility = "visible";
-        document.getElementById('survived').style.visibility = "visible";
-        document.getElementById('survived').innerHTML = "survived " + secondz + " seconds";
+        let gameOver = document.getElementsByClassName('gameOver')[0];
+        gameOver.style.display = "block";
+
+        if (timer < 50){
+            gameOver.getElementsByTagName('h1')[0].innerHTML = "Game Over";
+        }
+        if (timer > 50){
+            gameOver.getElementsByTagName('h1')[0].innerHTML = "-Play Again-";
+        }
+        gameOver.getElementsByTagName('h4')[0].innerHTML = "survived " + secondz + " seconds";
+        document.getElementsByClassName('stats')[0].style.visibility = "hidden";
+
         players.y = -600;
         clearInterval(intervalo2);
     }
@@ -427,26 +455,26 @@ function animation() {
 //		~~~~~~~~~~~~~~~~~~~~~~~~~~
         bullets.drawn();
     }
-//	--------------Meteor stuff-------------	
-    for (var h = 0; h < Meteor.length; h++) {
-        meteors = Meteor[h];
+//	--------------Asteroid stuff-------------
+    for (var h = 0; h < Asteroid.length; h++) {
+        asteroids = Asteroid[h];
 //					||Player colision||
-        if (!(players.x + players.width < meteors.x) && !(meteors.x + meteors.width < players.x) && !(players.y + players.height < meteors.y) && !(meteors.y + meteors.height < players.y)) {
+        if (!(players.x + players.width < asteroids.x) && !(asteroids.x + asteroids.width < players.x) && !(players.y + players.height < asteroids.y) && !(asteroids.y + asteroids.height < players.y)) {
 //			~~~~~~~~~|Function|~~~~~~~~
-            players.x -= meteors.speed;
+            players.x -= asteroids.speed;
             if (players.right) {
                 players.x -= players.speed;
             }
-            players.health -= (meteors.damage * players.armor);
+            players.health -= (asteroids.damage * players.armor);
 //			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         }
-//							||Bullet colision||		
+//							||Bullet colision||
         if (tiros >= 1) {
             for (var iBullets = 0; iBullets < Bullet.length; iBullets++) {
                 bullets = Bullet[iBullets];
-                if (!(bullets.x + bullets.width < meteors.x) && !(meteors.x + meteors.width < bullets.x) && !(bullets.y + bullets.height < meteors.y) && !(meteors.y + meteors.height < bullets.y)) {
+                if (!(bullets.x + bullets.width < asteroids.x) && !(asteroids.x + asteroids.width < bullets.x) && !(bullets.y + bullets.height < asteroids.y) && !(asteroids.y + asteroids.height < bullets.y)) {
 //					~~~|Function|~~~
-                    meteors.health--;
+                    asteroids.health--;
                     money++;
 //					~~~~~~~~~~~~~~~~~
                     bullets.x = 8000;
@@ -454,14 +482,13 @@ function animation() {
                 }
             }
         }
-        meteors.fillStyle = meteors.color;
-        meteors.drawn();
-        meteors.x -= meteors.speed;
-//					||Meteor re-use||
-        if (meteors.x < -30 || meteors.health <= 0) {
-            if (meteors.health <= 0) {
+        asteroids.fillStyle = asteroids.color;
+        asteroids.drawn();
+        asteroids.x -= asteroids.speed;
+//					||Asteroid re-use||
+        if (asteroids.x < -30 || asteroids.health <= 0) {
+            if (asteroids.health <= 0) {
                 soundRandom = Math.floor((Math.random() * 3) + 1);
-                console.log(soundAdder2);
                 if (soundRandom == 1) {
                     hitSound = document.getElementById('hitSound');
                     hitSound.play();
@@ -488,12 +515,12 @@ function animation() {
                 //soms existentes com cloneNode(), depois criar um if que detecte se hitSound.playing == true, se sim dar push new no objeto de som para criar outra copia
                 // e em seguida dar play.
             }
-            meteors.x = Math.random() * canvas.width + canvas.width;
-            meteors.y = Math.random() * canvas.height;
-            meteors.width = Math.random() * 30 + 15;
-            meteors.height = Math.random() * 30 + 15;
-            meteors.speed = Math.random() * 10 + 3;
-            meteors.health = Math.random() * 3;
+            asteroids.x = Math.random() * canvas.width + canvas.width;
+            asteroids.y = Math.random() * canvas.height;
+            asteroids.width = Math.random() * 30 + 15;
+            asteroids.height = Math.random() * 30 + 15;
+            asteroids.speed = Math.random() * 10 + 3;
+            asteroids.health = Math.random() * 3;
         }
     }
 //	----------------------------innerHTML changes-------------------------

@@ -1,157 +1,183 @@
-#box {
-	border: 1px solid black;
-	border-color: white;
+html, body, #root {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: black;
+    color: white;
+    font-family: "Courier New", sans-serif;
 }
-#GameOver {
-	color: red;
-	position: absolute;
-	top: 200;
-	left: 600;
-	visibility: hidden;
+
+.gameOver {
+    display: none;
+    text-align: center;
+    cursor: pointer;
 }
-#survived {
-	color: gray;
-	position: absolute;
-	top: 275;
-	left: 600;
-	visibility: hidden;
+
+.gameOver > h1 {
+    color: red;
 }
+
+.gameOver > h4 {
+    color: gray;
+}
+
 canvas {
--webkit-touch-callout: none;
--webkit-user-select: none;
--khtml-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
-html {
-	background-color: black;
-	color: white;
-	font-family: courier new;
+
+.UI {
+    float: left;
 }
-.container {
-	position: relative;
-	float: left;
-	width: 1300;
-	height: 1000;
-}
-.canvas {
-	position: relative;
-	float: left;
-	width: 700;
-	height: 500;
-}
-.button {
-	position: relative;
-	float: left;
-	margin: 0 2 2 0;
-	border: 2px solid gray;
-	background-color: gray;
-	width: 70;
-	height: 50;
-}
-.stats {
-	position: relative;
-	float: left;
-	width: 216;
-	height: 50;
-}
-.elementBox {
-	position: relative;
-	float: left;
-	margin: 0 1 0 1;
-	width: 70;
-	height: 50;
-}
-.upBox {
-	position: relative;
-	float: left;
-	text-align: center;
-	width: 70;
-	height: 30;
-	background-color: gray;
-}
-.downBox {
-	position: relative;
-	float: left;
-	width: 70;
-	height: 20;
-	text-align: center;
-	font-weight: bold;
-	color: black;
-	background-color: white;
-}
+
 .center {
-	margin-top: 10px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    margin: 0;
+    transform: translate(-50%, -50%);
 }
-.upgrades {
-	position: absolute;
-	top: 502;
-	left: 380;
-	margin: 0 5 0 5;
-	width: 432;
-	height: 510;
-	background-color: black;
+
+.menu {
+    width: 60%;
+    height: auto;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
 }
-.upgradeTitle {
-	position: relative;
-	float: left;
-	width: 432;
-	height: 40;
-	color: black;
-	text-align: center;
-	font-weight: bold;
-	background-color: #f46800;
+
+.logo {
+    filter: invert(100%);
+    width: 100%;
+    height: auto;
 }
-.upgradeCategory{
-	position: relative;
-	float: left;
-	margin: 1 1 1 1;
-	width: 140;
-	height: 60;
+
+.play {
+	font-size: 5vmax;
 	color: white;
-	text-align: center;
-	background-color: black;
+    cursor: pointer;
+    margin-top: 10%;
 }
+
+.stats {
+    position: absolute;
+    width: 216px;
+    height: 50px;
+    bottom: 5%;
+    right: 5%;
+    visibility: hidden;
+}
+
+.elementBox {
+    position: relative;
+    float: left;
+    margin: 0 1px 0 1px;
+    width: 70px;
+    height: 50px;
+}
+
+.upBox {
+    position: relative;
+    float: left;
+    text-align: center;
+    width: 70px;
+    height: 30px;
+    background-color: gray;
+}
+
+.downBox {
+    position: relative;
+    float: left;
+    width: 70px;
+    height: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+    background-color: white;
+}
+
+.upgrades {
+    position: relative;
+    top: 502px;
+    left: 380px;
+    margin: 0 5px 0 5px;
+    width: 432px;
+    height: 510px;
+    background-color: black;
+    display: none;
+}
+
+.upgradeTitle {
+    position: relative;
+    float: left;
+    width: 432px;
+    height: 40px;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    background-color: #f46800;
+}
+
+.upgradeCategory {
+    position: relative;
+    float: left;
+    margin: 1px 1px 1px 1px;
+    width: 140px;
+    height: 60px;
+    color: white;
+    text-align: center;
+    background-color: black;
+}
+
 .upgrade {
-	position: relative;
-	float: left;
-	margin: 0 1 1 1;
-	width: 140;
-	height: 100;
-	color: black;
-	font-size: 12;
-	text-align: center;
-	background-color: white;
+    position: relative;
+    float: left;
+    margin: 0 1px 1px 1px;
+    width: 140px;
+    height: 100px;
+    color: black;
+    font-size: 12px;
+    text-align: center;
+    background-color: white;
 }
+
 .textBox {
-	position: relative;
-	float: left;
-	width: 100;
-	height: 60;
-	text-align: center;
+    position: relative;
+    float: left;
+    width: 100px;
+    height: 60px;
+    text-align: center;
 }
+
 .quantidade {
-	position: relative;
-	float: left;
-	width: 40;
-	height: 60;
-	text-align: center;
-	background-color: gray;
+    position: relative;
+    float: left;
+    width: 40px;
+    height: 60px;
+    text-align: center;
+    background-color: gray;
 }
+
 .priceBox {
-	position: relative;
-	float: left;
-	width: 100;
-	height: 40;
-	text-align: center;
-	background-color: gray;
+    position: relative;
+    float: left;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    background-color: gray;
 }
+
 .comprar {
-	position: relative;
-	float: left;
-	width: 40;
-	height: 40;
-	text-align: center;
-	background-color: green;
+    position: relative;
+    float: left;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    background-color: green;
 }
