@@ -1,5 +1,6 @@
 let canvas, ctx, player, players, Player, keyDown, keyUp, keyLeft, keyRight, intervalo, shipCannon, distance, bullet, Bullet, bullets, tiros, timer, asteroid, asteroidAmmount,
-  seconds, secondz, money, intervalo2, soundAdder, soundAdder2, soundAdder3, canPlay, soundRandom, cannons2, shipCannon2, adder, adder2, healingEffect, shoot,arrowUp,arrowDown,arrowLeft,arrowRight;
+  seconds, secondz, money, intervalo2, soundAdder, soundAdder2, soundAdder3, canPlay, soundRandom, cannons2, shipCannon2, adder, adder2, healingEffect, shoot, arrowUp, arrowDown,
+  arrowLeft, arrowRight;
 keyUp = 87;
 keyDown = 83;
 keyLeft = 65;
@@ -25,46 +26,21 @@ shoot = false;
 let mobile = false;
 let mouse = {x: 200, y: 250, width: 0, height: 0};
 let orientationChange = false;
+let fullscreenPrompt = true;
 
 function load() {
 //	----------Canvas declarations-----------
   canvas = document.getElementById('box');
   ctx = canvas.getContext('2d');
 
-  document.onclick = function (argument) {
-    let conf = confirm("Fullscreen mode?");
-    let el = document.documentElement;
-
-    if (conf === true) {
-      document.onclick = null;
-      if (el.requestFullscreen) {
-        el.requestFullscreen().then(()=>{
-          setTimeout(()=>{
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;},200);
-        })
-      }
-      else if (el.mozRequestFullScreen) {
-        el.mozRequestFullScreen();
-      }
-      else if (el.webkitRequestFullScreen) {
-        el.webkitRequestFullScreen();
-      }
-      else if (el.msRequestFullscreen) {
-        el.msRequestFullscreen();
-      }
-    } else {
-      document.onclick = null;
-    }
-  };
-
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  window.addEventListener("orientationchange", function() {
-    setTimeout(()=>{
+  window.addEventListener("orientationchange", function () {
+    setTimeout(() => {
       canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;},200);
+      canvas.height = window.innerHeight;
+    }, 200);
   });
 
   asteroidAmmount = Math.round(document.body.clientWidth * document.body.clientHeight / 50000);
@@ -238,7 +214,7 @@ function load() {
       players.left = true;
     } else if (event.keyCode === keyRight || event.keyCode === arrowRight) {
       players.right = true;
-    } else if (event.keyCode === 32){
+    } else if (event.keyCode === 32) {
       shoot = true;
     }
   }
@@ -254,7 +230,7 @@ function load() {
       players.left = false;
     } else if (event.keyCode === keyRight || event.keyCode === arrowRight) {
       players.right = false;
-    } else if (event.keyCode === 32){
+    } else if (event.keyCode === 32) {
       shoot = false;
     }
   }
@@ -272,6 +248,31 @@ function play() {
     for (var z = 0; z < asteroidAmmount; z++) {
       Asteroid.push(new asteroid(Math.random() * canvas.width + canvas.width, Math.random() * canvas.height,
         Math.random() * 30 + 15, Math.random() * 30 + 15, Math.random() * 10 + 3, Math.random() * 2, "gray", 1, false));
+    }
+
+    if (fullscreenPrompt) {
+      let conf = confirm("Fullscreen mode?");
+      let el = document.documentElement;
+
+      if (conf === true) {
+        fullscreenPrompt = false;
+        if (el.requestFullscreen) {
+          el.requestFullscreen().then(() => {
+            setTimeout(() => {
+              canvas.width = window.innerWidth;
+              canvas.height = window.innerHeight;
+            }, 200);
+          })
+        } else if (el.mozRequestFullScreen) {
+          el.mozRequestFullScreen();
+        } else if (el.webkitRequestFullScreen) {
+          el.webkitRequestFullScreen();
+        } else if (el.msRequestFullscreen) {
+          el.msRequestFullscreen();
+        }
+      } else {
+        fullscreenPrompt = false;
+      }
     }
 
     animation();
@@ -413,7 +414,7 @@ function increaseAttackSpeed() {
 }
 
 function animation() {
-    requestAnimationFrame(animation);
+  requestAnimationFrame(animation);
 //	------Canvas clear------
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -599,7 +600,7 @@ function animation() {
       if (players.right) {
         players.x -= players.speedV;
       }
-      if (mouse.x > players.x + players.width){
+      if (mouse.x > players.x + players.width) {
         players.dx = 0;
         players.x -= players.speedV;
       }
