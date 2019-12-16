@@ -1,6 +1,7 @@
 let canvas, ctx, player, players, Player, keyDown, keyUp, keyLeft, keyRight, intervalo, shipCannon, distance, bullet, Bullet, bullets, tiros, timer, asteroid, asteroidAmmount,
   seconds, secondz, money, intervalo2, soundAdder, soundAdder2, soundAdder3, canPlay, soundRandom, cannons2, shipCannon2, adder, adder2, healingEffect, shoot, arrowUp, arrowDown,
   arrowLeft, arrowRight;
+let lifeContainer,dx,dy,distances,prices,quantities,bgMusic,Asteroid,asteroids,healingSound,shootSound,hitSound,hitSound2,hitSound3;
 keyUp = 87;
 keyDown = 83;
 keyLeft = 65;
@@ -18,9 +19,9 @@ soundAdder2 = 0;
 soundAdder3 = 0;
 canPlay = true;
 cannons2 = false;
-shotSpeed = 20;
-gradientAdder = 0;
-gradientAdder2 = 0;
+let shotSpeed = 20;
+let gradientAdder = 0;
+let gradientAdder2 = 0;
 healingEffect = false;
 shoot = false;
 let mobile = false;
@@ -28,7 +29,7 @@ let mouse = {x: 200, y: 250, width: 0, height: 0};
 let orientationChange = false;
 let fullscreenPrompt = true;
 
-function load() {
+export function load() {
 //	----------Canvas declarations-----------
   canvas = document.getElementById('box');
   ctx = canvas.getContext('2d');
@@ -236,9 +237,10 @@ function load() {
   }
 }
 
-function play() {
+export function play() {
   if (canPlay) {
     intervalo2 = setInterval(timerSeconds, 100);
+    bgMusic = document.getElementById('bgMusic');
     bgMusic.play();
     bgMusic.volume = 0.35;
     document.getElementsByClassName('menu')[0].style.display = "none";
@@ -251,7 +253,7 @@ function play() {
     }
 
     if (fullscreenPrompt) {
-      let conf = confirm("Fullscreen mode?");
+      let conf = window.confirm("Fullscreen mode?");
       let el = document.documentElement;
 
       if (conf === true) {
@@ -321,7 +323,7 @@ function playAgain() {
 //	|=======================|Shop|========================|
 //	                   ||Basic stats||
 //	  	                   |Player|
-function increaseHealth() {
+export function increaseHealth() {
   if (money >= prices.baseHealth) {
     players.baseHealth += 20;
     money -= prices.baseHealth;
@@ -333,7 +335,7 @@ function increaseHealth() {
   }
 }
 
-function increaseSpeed() {
+export function increaseSpeed() {
   if (money >= prices.increaseSpeed) {
     players.speedV += 1;
     money -= prices.increaseSpeed;
@@ -345,7 +347,7 @@ function increaseSpeed() {
   }
 }
 
-function makeSmall() {
+export function makeSmall() {
   if (money >= prices.makeSmall) {
     if (quantities.makeSmall < 4) {
       players.width -= 10;
@@ -364,7 +366,7 @@ function makeSmall() {
 }
 
 //							|Container|
-function increaseHealing() {
+export function increaseHealing() {
   if (money >= prices.increaseHealing) {
     lifeContainer.healing += 10;
     money -= prices.increaseHealing;
@@ -378,7 +380,7 @@ function increaseHealing() {
 
 //							||Cannons||
 //						   |Add cannons|
-function moreCannons() {
+export function moreCannons() {
   if (money >= prices.moreCannons) {
     if (!cannons2) {
       cannons2 = true;
@@ -396,7 +398,7 @@ function moreCannons() {
   }
 }
 
-function increaseAttackSpeed() {
+export function increaseAttackSpeed() {
   if (money >= prices.increaseAttackSPeed) {
     if (quantities.increaseAttackSPeed < 20) {
       shotSpeed -= 1;
@@ -421,7 +423,7 @@ function animation() {
 //	                  |Health container|
 //	--Asteroid increase--
   timer++;
-  if (timer == 100) {
+  if (timer === 100) {
     timer = 0;
     Asteroid.push(new asteroid(Math.random() * canvas.width + canvas.width, Math.random() * canvas.height,
       Math.random() * 30 + 15, Math.random() * 30 + 15, Math.random() * 10 + 3, Math.random() * 2, "gray", 1));
@@ -628,17 +630,17 @@ function animation() {
     if (asteroids.x < -30 || asteroids.health <= 0) {
       if (asteroids.health <= 0) {
         soundRandom = Math.floor((Math.random() * 3) + 1);
-        if (soundRandom == 1) {
+        if (soundRandom === 1) {
           hitSound = document.getElementById('hitSound');
           hitSound.play();
           hitSound.volume = 1;
         }
-        if (soundRandom == 2) {
+        if (soundRandom === 2) {
           hitSound2 = document.getElementById('hitSound2');
           hitSound2.play();
           hitSound2.volume = 1;
         }
-        if (soundRandom == 3) {
+        if (soundRandom === 3) {
           hitSound3 = document.getElementById('hitSound3');
           hitSound3.play();
           hitSound3.volume = 1;
@@ -651,7 +653,7 @@ function animation() {
          }
          soundAdder2++;*/
         //Se for necessario que cada asteroide possua um som individual fazer o seguinte:criar um objeto que tenha a funsao de criar copias dos
-        //soms existentes com cloneNode(), depois criar um if que detecte se hitSound.playing == true, se sim dar push new no objeto de som para criar outra copia
+        //soms existentes com cloneNode(), depois criar um if que detecte se hitSound.playing === true, se sim dar push new no objeto de som para criar outra copia
         // e em seguida dar play.
       }
       asteroids.x = Math.random() * canvas.width + canvas.width;

@@ -1,0 +1,235 @@
+html, body, #root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+.container {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: black;
+  color: white;
+  font-family: "Courier New", sans-serif;
+
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  overscroll-behavior: contain;
+}
+
+.gameOver {
+  display: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.gameOver > h1 {
+  color: red;
+  font-size: 3vw;
+}
+
+.gameOver > h4 {
+  color: gray;
+  font-size: 1.5vw;
+}
+
+.UI {
+  float: left;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  margin: 0;
+  transform: translate(-50%, -50%);
+}
+
+.menu {
+  width: 60%;
+  height: auto;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+}
+
+.logo {
+  filter: invert(100%);
+  width: 100%;
+  height: auto;
+}
+
+.play {
+  font-size: 5vmax;
+  color: white;
+  cursor: pointer;
+  margin-top: 10%;
+}
+
+.stats {
+  position: absolute;
+  width: 216px;
+  height: 50px;
+  top: 5%;
+  right: 5%;
+  visibility: hidden;
+}
+
+.elementBox {
+  position: relative;
+  float: left;
+  margin: 0 1px 0 1px;
+  width: 70px;
+  height: 50px;
+}
+
+.upBox {
+  position: relative;
+  float: left;
+  text-align: center;
+  width: 70px;
+  height: 30px;
+  background-color: gray;
+}
+
+.downBox {
+  position: relative;
+  float: left;
+  width: 70px;
+  height: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: black;
+  background-color: white;
+}
+
+.upgrades {
+  max-width: 200px;
+  height: auto;
+  display: none;
+  flex-direction: column;
+
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+
+  color: black;
+}
+
+.ship {
+  left: 10%;
+}
+.healing {
+  right: 10%;
+}
+
+.upgrades > .img {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
+  justify-content: center;
+  text-align: center;
+  align-content: center;
+}
+.upgrades > .img > h3 {
+  text-align: center;
+  margin-bottom: 7%;
+  font-size: 2.5vw;
+  max-font-size: 26px;
+  white-space: nowrap;
+}
+.upgrades > .img > img {
+  width: 80%;
+  height: auto;
+}
+
+.upgrade {
+  width: 100%;
+  height: auto;
+  display: flex;
+  margin-top: 10%;
+}
+.upgrade > div {
+  width: 33.3%;
+}
+.price {
+  display: flex;
+  align-items: center;
+  margin-right: 2%;
+  cursor: pointer;
+}
+.price > h4 {
+  text-align: center;
+  border: solid black 0.1vw;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+}
+.icon > img {
+  width: 100%;
+  height: auto;
+}
+
+.description {
+  font-size: 1.5vw;
+  max-font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-left: 4%;
+}
+.description > p {
+  white-space: nowrap;
+}
+@media (max-height: 500px) {
+  .upgrades {
+    width: 8%;
+  }
+  .upgrades > #img > h3 {
+    font-size: 0.5vw;
+  }
+  .price > h4 {
+    font-size: 0.5vw;
+  }
+  .description {
+    font-size: 0.2vw;
+  }
+}
+@media (max-width: 1040px) and (min-height: 400px) and (orientation: portrait){
+  .upgrades {
+    width: 20%;
+  }
+  .upgrades > #img > h3 {
+    font-size: 2.5vw;
+  }
+  .price > h4 {
+    font-size: 2vw;
+  }
+  .description {
+    font-size: 1.5vw;
+  }
+}
+
+@media (min-width: 1040px) {
+  .upgrades {
+    width: 20%;
+  }
+  .upgrades > #img > h3 {
+    font-size: 26px;
+  }
+  .price > h4 {
+    font-size: 20px;
+  }
+  .description {
+    font-size: 15px;
+  }
+}
