@@ -43,7 +43,7 @@ function load() {
     }, 200);
   });
 
-  asteroidAmmount = Math.round(document.body.clientWidth * document.body.clientHeight / 50000);
+  asteroidAmmount = Math.round(document.body.clientHeight  / 70);
 
 //	---------------Objects-------------
   function cannon(x, y, width, height, color) {
