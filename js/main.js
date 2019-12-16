@@ -26,16 +26,10 @@ let mobile = false;
 let mouse = {x: 200, y: 250, width: 0, height: 0};
 let orientationChange = false;
 
-//TODO: On orientation change, reload canvas size. Fix upgrades on landscape mode. Full Screen prompt alert. Prevent reload on swipe down
-
 function load() {
 //	----------Canvas declarations-----------
   canvas = document.getElementById('box');
   ctx = canvas.getContext('2d');
-
-  document.addEventListener('onclick',()=>{
-
-  });
 
   document.onclick = function (argument) {
     let conf = confirm("Fullscreen mode?");
@@ -47,7 +41,7 @@ function load() {
           setTimeout(()=>{
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;},200);
-
+            document.onclick = null;
         })
       }
       else if (el.mozRequestFullScreen) {
