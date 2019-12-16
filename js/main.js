@@ -1,9 +1,13 @@
 let canvas, ctx, player, players, Player, keyDown, keyUp, keyLeft, keyRight, intervalo, shipCannon, distance, bullet, Bullet, bullets, tiros, timer, asteroid, asteroidAmmount,
-  seconds, secondz, money, intervalo2, soundAdder, soundAdder2, soundAdder3, canPlay, soundRandom, cannons2, shipCannon2, adder, adder2, healingEffect, shoot;
+  seconds, secondz, money, intervalo2, soundAdder, soundAdder2, soundAdder3, canPlay, soundRandom, cannons2, shipCannon2, adder, adder2, healingEffect, shoot,arrowUp,arrowDown,arrowLeft,arrowRight;
 keyUp = 87;
 keyDown = 83;
 keyLeft = 65;
 keyRight = 68;
+arrowUp = 38;
+arrowDown = 40;
+arrowLeft = 37;
+arrowRight = 39;
 tiros = 0;
 timer = 0;
 seconds = 0;
@@ -20,27 +24,54 @@ healingEffect = false;
 shoot = false;
 let mobile = false;
 let mouse = {x: 200, y: 250, width: 0, height: 0};
+let orientationChange = false;
 
-function collision(a, b, type) {
-  if (type === 'touch') {
-    if ((a.x + a.width > b.x) && (a.x < b.x + b.width) && (a.y + a.height > b.y) && (a.y < b.y + b.height)) {
-      return true;
-    }
-  }
-  if (type === 'inside') {
-    if ((a.x > b.x) && (a.x + a.width < b.x + b.width) && (a.y > b.y) && (a.y + a.height < b.y + b.height)) {
-      return true;
-    }
-  }
-}
+//TODO: On orientation change, reload canvas size. Fix upgrades on landscape mode. Full Screen prompt alert. Prevent reload on swipe down
 
 function load() {
 //	----------Canvas declarations-----------
   canvas = document.getElementById('box');
   ctx = canvas.getContext('2d');
 
+  document.addEventListener('onclick',()=>{
+
+  });
+
+  document.onclick = function (argument) {
+    let conf = confirm("Fullscreen mode?");
+    let el = document.documentElement;
+
+    if (conf === true) {
+      if (el.requestFullscreen) {
+        el.requestFullscreen().then(()=>{
+          setTimeout(()=>{
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;},200);
+
+        })
+      }
+      else if (el.mozRequestFullScreen) {
+        el.mozRequestFullScreen();
+      }
+      else if (el.webkitRequestFullScreen) {
+        el.webkitRequestFullScreen();
+      }
+      else if (el.msRequestFullscreen) {
+        el.msRequestFullscreen();
+      }
+    } else {
+      document.onclick = null;
+    }
+  };
+
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+
+  window.addEventListener("orientationchange", function() {
+    setTimeout(()=>{
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;},200);
+  });
 
   asteroidAmmount = Math.round(document.body.clientWidth * document.body.clientHeight / 50000);
 
@@ -205,13 +236,13 @@ function load() {
   window.addEventListener("keydown", checkKeyDown, false);
 
   function checkKeyDown(event) {
-    if (event.keyCode === keyUp) {
+    if (event.keyCode === keyUp || event.keyCode === arrowUp) {
       players.up = true;
-    } else if (event.keyCode === keyDown) {
+    } else if (event.keyCode === keyDown || event.keyCode === arrowDown) {
       players.down = true;
-    } else if (event.keyCode === keyLeft) {
+    } else if (event.keyCode === keyLeft || event.keyCode === arrowLeft) {
       players.left = true;
-    } else if (event.keyCode === keyRight) {
+    } else if (event.keyCode === keyRight || event.keyCode === arrowRight) {
       players.right = true;
     } else if (event.keyCode === 32){
       shoot = true;
@@ -221,13 +252,13 @@ function load() {
   window.addEventListener("keyup", checkKeyUp, false);
 
   function checkKeyUp(event) {
-    if (event.keyCode === keyUp) {
+    if (event.keyCode === keyUp || event.keyCode === arrowUp) {
       players.up = false;
-    } else if (event.keyCode === keyDown) {
+    } else if (event.keyCode === keyDown || event.keyCode === arrowDown) {
       players.down = false;
-    } else if (event.keyCode === keyLeft) {
+    } else if (event.keyCode === keyLeft || event.keyCode === arrowLeft) {
       players.left = false;
-    } else if (event.keyCode === keyRight) {
+    } else if (event.keyCode === keyRight || event.keyCode === arrowRight) {
       players.right = false;
     } else if (event.keyCode === 32){
       shoot = false;
@@ -237,7 +268,6 @@ function load() {
 
 function play() {
   if (canPlay) {
-    intervalo = setInterval(animation, 1000 / 60);
     intervalo2 = setInterval(timerSeconds, 100);
     bgMusic.play();
     bgMusic.volume = 0.35;
@@ -249,6 +279,8 @@ function play() {
       Asteroid.push(new asteroid(Math.random() * canvas.width + canvas.width, Math.random() * canvas.height,
         Math.random() * 30 + 15, Math.random() * 30 + 15, Math.random() * 10 + 3, Math.random() * 2, "gray", 1, false));
     }
+
+    animation();
   } else {
     canPlay = true;
     playAgain();
@@ -387,6 +419,7 @@ function increaseAttackSpeed() {
 }
 
 function animation() {
+    requestAnimationFrame(animation);
 //	------Canvas clear------
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);

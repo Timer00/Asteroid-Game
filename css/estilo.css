@@ -11,6 +11,8 @@ html, body, #root {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
+    overscroll-behavior: contain;
 }
 
 .gameOver {
@@ -103,7 +105,6 @@ html, body, #root {
 }
 
 .upgrades {
-    width: 20%;
     max-width: 200px;
     height: auto;
     display: none;
@@ -115,6 +116,7 @@ html, body, #root {
 
     color: black;
 }
+
 .ship {
     left: 10%;
 }
@@ -160,7 +162,7 @@ html, body, #root {
 }
 .price > h4 {
     text-align: center;
-    border: solid black 2px;
+    border: solid black 0.1vw;
 }
 
 .icon {
@@ -183,8 +185,24 @@ html, body, #root {
 .description > p {
     white-space: nowrap;
 }
-
-@media (max-width: 1040px) {
+@media (max-height: 500px) {
+    .upgrades {
+        width: 8%;
+    }
+    .upgrades > #img > h3 {
+        font-size: 0.5vw;
+    }
+    .price > h4 {
+        font-size: 0.5vw;
+    }
+    .description {
+        font-size: 0.2vw;
+    }
+}
+@media (max-width: 1040px) and (min-height: 400px) and (orientation: portrait){
+    .upgrades {
+        width: 20%;
+    }
     .upgrades > #img > h3 {
         font-size: 2.5vw;
     }
@@ -197,6 +215,9 @@ html, body, #root {
 }
 
 @media (min-width: 1040px) {
+    .upgrades {
+        width: 20%;
+    }
     .upgrades > #img > h3 {
         font-size: 26px;
     }
