@@ -36,12 +36,12 @@ function load() {
     let el = document.documentElement;
 
     if (conf === true) {
+      document.onclick = null;
       if (el.requestFullscreen) {
         el.requestFullscreen().then(()=>{
           setTimeout(()=>{
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;},200);
-            document.onclick = null;
         })
       }
       else if (el.mozRequestFullScreen) {
