@@ -2,14 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import { load, play, increaseHealth, increaseSpeed, makeSmall, moreCannons, increaseAttackSpeed, increaseHealing } from './main';
 
-import canon from './images/canon.png'
-import heart from './images/heart.png'
-import ship from './images/ship.png'
-import shrink from './images/shrink.png'
-import logoFull from './images/logoFull.png'
-import speed from './images/speed.png'
-import healthContainer from './images/health container.png'
-
 import bgMusic from './sounds/bgMusic.mp3'
 import healingSound from './sounds/healingSound.mp3'
 import hitSound from './sounds/hitSound.mp3'
@@ -27,49 +19,49 @@ class App extends Component {
       <div className="container">
         <canvas id="box"/>
         <div className="menu center">
-          <img src={logoFull} alt="" className="logo"/>
+          <img src={'http://timer00.github.io/Asteroids/imagens/logoFull.png'} alt="" className="logo"/>
           <div onClick={play} className="play">Play</div>
         </div>
 
         <div className="upgrades ship">
           <div className="img">
             <h3>Ship Upgrades</h3>
-            <img src={ship} alt=""/>
+            <img src={'http://timer00.github.io/Asteroids/imagens/ship.png'} alt=""/>
           </div>
           <div className="upgrade">
             <div className="price" onClick={increaseHealth}><h4>150$</h4></div>
-            <div className="icon"><img src={heart} alt=""/></div>
+            <div className="icon"><img src={'http://timer00.github.io/Asteroids/imagens/heart.png'} alt=""/></div>
             <div className="description"><p>+20 HP</p></div>
           </div>
           <div className="upgrade">
             <div className="price" onClick={increaseSpeed}><h4>150$</h4></div>
-            <div className="icon"><img src={speed} alt=""/></div>
+            <div className="icon"><img src={'http://timer00.github.io/Asteroids/imagens/speed.png'} alt=""/></div>
             <div className="description"><p>+1 Speed</p></div>
           </div>
           <div className="upgrade">
             <div className="price" onClick={makeSmall}><h4>500$</h4></div>
-            <div className="icon"><img src={shrink} alt=""/></div>
+            <div className="icon"><img src={'http://timer00.github.io/Asteroids/imagens/shrink.png'} alt=""/></div>
             <div className="description"><p>-10 size</p></div>
           </div>
           <div className="upgrade">
             <div className="price" onClick={moreCannons}><h4>550$</h4></div>
-            <div className="icon"><img src={canon} alt=""/></div>
+            <div className="icon"><img src={'http://timer00.github.io/Asteroids/imagens/canon.png'} alt=""/></div>
             <div className="description"><p>+1 Canon</p></div>
           </div>
           <div className="upgrade">
             <div className="price" onClick={increaseAttackSpeed}><h4>250$</h4></div>
-            <div className="icon"><img src={canon} alt=""/></div>
+            <div className="icon"><img src={'http://timer00.github.io/Asteroids/imagens/canon.png'} alt=""/></div>
             <div className="description"><p>+1 Attack <br/> Speed</p></div>
           </div>
         </div>
         <div className="upgrades healing">
           <div className="img">
             <h3>Healing Upgrades</h3>
-            <img src={healthContainer}  alt=""/>
+            <img src={'http://timer00.github.io/Asteroids/imagens/health container.png'}  alt=""/>
           </div>
           <div className="upgrade">
             <div className="price" onClick={increaseHealing}><h4>500$</h4></div>
-            <div className="icon"><img src={heart} alt=""/></div>
+            <div className="icon"><img src={'http://timer00.github.io/Asteroids/imagens/heart.png'} alt=""/></div>
             <div className="description"><p>+10 Healing</p></div>
           </div>
         </div>
