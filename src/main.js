@@ -1,3 +1,5 @@
+import Koji from '@withkoji/vcc';
+
 let canvas, ctx, player, players, Player, keyDown, keyUp, keyLeft, keyRight, intervalo, shipCannon, distance, bullet, Bullet, bullets, tiros, timer, asteroid, asteroidAmmount,
   seconds, secondz, money, intervalo2, soundAdder, soundAdder2, soundAdder3, canPlay, soundRandom, cannons2, shipCannon2, adder, adder2, healingEffect, shoot, arrowUp, arrowDown,
   arrowLeft, arrowRight;
@@ -80,15 +82,15 @@ export function load() {
     this.left = false;
 
     this.drawn = function () {
-      ctx.fillStyle = "black";
+      ctx.fillStyle = Koji.config.colors.shipOuterColor;
       ctx.fillRect(this.x, this.y, this.width, this.height);
-      ctx.fillStyle = "red";
+      ctx.fillStyle = Koji.config.colors.shipInnerColor;
       ctx.fillRect(this.x + (this.width / 4), this.y + (this.height / 4), this.width / 2, this.height / 2);
       if (cannons2) {
-        shipCannon = new cannon(this.x + (this.width * 0.9), this.y + (this.height * 0.35), this.width / 10, this.height / 10, "red");
-        shipCannon2 = new cannon(this.x + (this.width * 0.9), this.y + (this.height * 0.55), this.width / 10, this.height / 10, "red");
+        shipCannon = new cannon(this.x + (this.width * 0.9), this.y + (this.height * 0.35), this.width / 10, this.height / 10, Koji.config.colors.cannonColor);
+        shipCannon2 = new cannon(this.x + (this.width * 0.9), this.y + (this.height * 0.55), this.width / 10, this.height / 10, Koji.config.colors.cannonColor);
       } else {
-        shipCannon = new cannon(this.x + (this.width * 0.9), this.y + (this.height * 0.45), this.width / 10, this.height / 10, "red");
+        shipCannon = new cannon(this.x + (this.width * 0.9), this.y + (this.height * 0.45), this.width / 10, this.height / 10, Koji.config.colors.canonnColor);
       }
 
 
@@ -104,7 +106,7 @@ export function load() {
     this.speed = speed;
 
     this.drawn = function () {
-      ctx.fillStyle = this.color;
+      ctx.fillStyle = Koji.config.colors.bulletColor;
       ctx.fillRect(this.x, this.y, this.width, this.height);
     }
   };
@@ -140,12 +142,12 @@ export function load() {
     this.drawn = function () {
       ctx.fillStyle = this.color;
       ctx.fillRect(this.x, this.y, this.width, this.height);
-      ctx.fillStyle = "white";
+      ctx.fillStyle = Koji.config.colors.lifeContainerInnerColor;
       ctx.fillRect(this.x + 5, this.y + 5, 20, 10);
     }
   }
 
-  lifeContainer = new healthContainer(Math.random() * 5000 + 3000, Math.random() * (canvas.height - 30), 30, 20, "rgb(0,191,255)", 7, 10);
+  lifeContainer = new healthContainer(Math.random() * 5000 + 3000, Math.random() * (canvas.height - 30), 30, 20, Koji.config.colors.lifeContainerOuterColor, 7, 10);
 
   distance = function (objX, objY, obj2X, obj2Y) {
     dx = objX - obj2X;
@@ -154,27 +156,24 @@ export function load() {
     return [distances];
   };
 
-  function price() {
-    this.baseHealth = 150;
-    this.increaseSpeed = 150;
-    this.makeSmall = 500;
-    this.increaseHealing = 300;
-    this.moreCannons = 550;
-    this.increaseAttackSPeed = 200;
+prices = {
+    baseHealth: 150,
+    increaseSpeed: 150,
+    makeSmall: 500,
+    increaseHealing: 300,
+    moreCannons: 550,
+    increaseAttackSPeed: 200,
+}
+
+  quantities = {
+    baseHealth: 0,
+    increaseSpeed: 0,
+    makeSmall: 0,
+    increaseHealing: 0,
+    moreCannons: 0,
+    increaseAttackSPeed: 0,
   }
 
-  prices = new price();
-
-  function quantity() {
-    this.baseHealth = 0;
-    this.increaseSpeed = 0;
-    this.makeSmall = 0;
-    this.increaseHealing = 0;
-    this.moreCannons = 0;
-    this.increaseAttackSPeed = 0;
-  }
-
-  quantities = new quantity();
 //	----------------Input detection-------------------
 //				||Mouse||
   canvas.onmousedown = function (e) {
@@ -249,7 +248,7 @@ export function play() {
     Asteroid = [];
     for (var z = 0; z < asteroidAmmount; z++) {
       Asteroid.push(new asteroid(Math.random() * canvas.width + canvas.width, Math.random() * canvas.height,
-        Math.random() * 30 + 15, Math.random() * 30 + 15, Math.random() * 10 + 3, Math.random() * 2, "gray", 1, false));
+        Math.random() * 30 + 15, Math.random() * 30 + 15, Math.random() * 10 + 3, Math.random() * 2, Koji.config.colors.asteroidColor, 1, false));
     }
 
     if (fullscreenPrompt) {
@@ -309,7 +308,7 @@ function playAgain() {
   Asteroid = [];
   for (var z = 0; z < asteroidAmmount; z++) {
     Asteroid.push(new asteroid(Math.random() * canvas.width + canvas.width, Math.random() * canvas.height,
-      Math.random() * 30 + 15, Math.random() * 30 + 15, Math.random() * 10 + 3, Math.random() * 2, "gray", 1, false));
+      Math.random() * 30 + 15, Math.random() * 30 + 15, Math.random() * 10 + 3, Math.random() * 2, Koji.config.colors.asteroidColor, 1, false));
   }
 //	-Timer reset-
   timer = 0;
@@ -418,7 +417,7 @@ export function increaseAttackSpeed() {
 function animation() {
   requestAnimationFrame(animation);
 //	------Canvas clear------
-  ctx.fillStyle = "white";
+  ctx.fillStyle = Koji.config.colors.backgroundColor;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 //	                  |Health container|
 //	--Asteroid increase--
@@ -426,7 +425,7 @@ function animation() {
   if (timer === 100) {
     timer = 0;
     Asteroid.push(new asteroid(Math.random() * canvas.width + canvas.width, Math.random() * canvas.height,
-      Math.random() * 30 + 15, Math.random() * 30 + 15, Math.random() * 10 + 3, Math.random() * 2, "gray", 1));
+      Math.random() * 30 + 15, Math.random() * 30 + 15, Math.random() * 10 + 3, Math.random() * 2, Koji.config.colors.asteroidColor, 1));
   }
 //	-----------Key events---------
   if (players.up) {
@@ -549,11 +548,11 @@ function animation() {
       let gradientW = players.width / 2;
       let gradientH = players.height / 2;
       let gradient = ctx.createLinearGradient(gradientX - 50, gradientY, gradientX + gradientW + 50, gradientY);
-      gradient.addColorStop(0, "red");
-      gradient.addColorStop(Math.abs(0.6 - gradientAdder), "red");
-      gradient.addColorStop(Math.abs(0.7 - gradientAdder), "white");
-      gradient.addColorStop(Math.abs(0.8 - gradientAdder), "red");
-      gradient.addColorStop(1, "red");
+      gradient.addColorStop(0, Koji.config.colors.shipInnerColor);
+      gradient.addColorStop(Math.abs(0.6 - gradientAdder), Koji.config.colors.shipInnerColor);
+      gradient.addColorStop(Math.abs(0.7 - gradientAdder), Koji.config.colors.healingEffectColor);
+      gradient.addColorStop(Math.abs(0.8 - gradientAdder), Koji.config.colors.shipInnerColor);
+      gradient.addColorStop(1, Koji.config.colors.shipInnerColor);
       ctx.fillStyle = gradient;
       ctx.fillRect(gradientX, gradientY, gradientW, gradientH);
     }
@@ -572,12 +571,12 @@ function animation() {
     }
 
     if (timer < 50) {
-      gameOver.getElementsByTagName('h1')[0].innerHTML = "Game Over";
+      gameOver.getElementsByTagName('h1')[0].innerHTML = Koji.config.strings.gameOver;
     }
     if (timer > 50) {
-      gameOver.getElementsByTagName('h1')[0].innerHTML = "-Play Again-";
+      gameOver.getElementsByTagName('h1')[0].innerHTML = Koji.config.strings.playAgain;
     }
-    gameOver.getElementsByTagName('h4')[0].innerHTML = "survived " + secondz + " seconds";
+    gameOver.getElementsByTagName('h4')[0].innerHTML = Koji.config.strings.survived + " " + secondz + " " + Koji.config.strings.seconds;
 
     players.y = -600;
     clearInterval(intervalo2);
@@ -666,5 +665,5 @@ function animation() {
   }
 //	----------------------------innerHTML changes-------------------------
   document.getElementById('healthBox').innerHTML = players.health + " hp";
-  document.getElementById('moneyBox').innerHTML = "$" + money + ",00";
+  document.getElementById('moneyBox').innerHTML = "$" + money;
 }

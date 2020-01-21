@@ -2,6 +2,8 @@ html, body, #root {
   margin: 0;
   width: 100%;
   height: 100%;
+
+  overscroll-behavior: contain;
 }
 .container {
   margin: 0;
@@ -16,8 +18,6 @@ html, body, #root {
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-
-  overscroll-behavior: contain;
 }
 
 .gameOver {
@@ -55,6 +55,7 @@ html, body, #root {
 
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center; /* align horizontal */
   align-items: center; /* align vertical */
 }
@@ -65,11 +66,15 @@ html, body, #root {
   height: auto;
 }
 
+.instructions {
+  font-size: 1vw;
+}
+
 .play {
   font-size: 5vmax;
   color: white;
   cursor: pointer;
-  margin-top: 10%;
+  margin-top: 2%;
 }
 
 .stats {
@@ -79,6 +84,19 @@ html, body, #root {
   top: 5%;
   right: 5%;
   visibility: hidden;
+}
+
+.sound {
+  position: absolute;
+  width: 5%;
+  height: auto;
+  bottom: 5%;
+  right: 5%;
+}
+
+.sound > img {
+    width: 100%;
+    height: auto;
 }
 
 .elementBox {

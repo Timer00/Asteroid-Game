@@ -1,18 +1,36 @@
 import React, { Component } from 'react';
+import Koji from '@withkoji/vcc';
 import './App.css';
 import { load, play, increaseHealth, increaseSpeed, makeSmall, moreCannons, increaseAttackSpeed, increaseHealing } from './main';
 
-import bgMusic from './sounds/bgMusic.mp3'
-import healingSound from './sounds/healingSound.mp3'
-import hitSound from './sounds/hitSound.mp3'
-import hitSound2 from './sounds/hitSound2.mp3'
-import hitSound3 from './sounds/hitSound3.mp3'
-import pew from './sounds/pew.mp3'
-
 class App extends Component {
-  componentDidMount() {
-    load();
+    constructor() {
+    super();
+    this.state = {
+      muted: false,
+      playScreen: true
+    };
   }
+componentDidMount() {
+  load();
+}
+
+play = () => {
+  play();
+  this.setState({playScreen: false});
+}
+
+soundTrigger = () => {
+    this.setState({muted: !this.state.muted});
+    Array.prototype.slice.call(document.querySelectorAll('audio')).forEach(audio=> {
+        if (this.state.muted){
+            audio.muted = false;
+        } else {
+            audio.muted = true;
+        }
+    });
+}
+
 
   render() {
     return (
@@ -20,12 +38,16 @@ class App extends Component {
         <canvas id="box"/>
         <div className="menu center">
           <img src={'http://timer00.github.io/Asteroids/imagens/logoFull.png'} alt="" className="logo"/>
-          <div onClick={play} className="play">Play</div>
+          <div className="instructions">
+            WASD, Arrow keys or Touch to MOVE <br/>
+            Left click, space or Touch to SHOOT
+          </div>
+          <div onClick={this.play} className="play">{Koji.config.strings.playButton}</div>
         </div>
 
         <div className="upgrades ship">
           <div className="img">
-            <h3>Ship Upgrades</h3>
+            <h3>{Koji.config.strings.shipUpgrades}</h3>
             <img src={'http://timer00.github.io/Asteroids/imagens/ship.png'} alt=""/>
           </div>
           <div className="upgrade">
@@ -56,7 +78,7 @@ class App extends Component {
         </div>
         <div className="upgrades healing">
           <div className="img">
-            <h3>Healing Upgrades</h3>
+            <h3>{Koji.config.strings.healingUpgrades}</h3>
             <img src={'http://timer00.github.io/Asteroids/imagens/health container.png'}  alt=""/>
           </div>
           <div className="upgrade">
@@ -67,42 +89,51 @@ class App extends Component {
         </div>
 
         <div className="center gameOver" onClick={play}>
-          <h1>Game Over</h1>
+          <h1>{Koji.config.strings.gameOver}</h1>
           <h4></h4>
         </div>
 
         <div className="stats">
           <div className="elementBox">
             <div className="upBox" id="secondsBox">0.0 s</div>
-            <div className="downBox" id="secondsName">Seconds</div>
+            <div className="downBox" id="secondsName">{Koji.config.strings.seconds}</div>
           </div>
           <div className="elementBox">
             <div className="upBox" id="healthBox">hp</div>
-            <div className="downBox" id="healthName">Health</div>
+            <div className="downBox" id="healthName">{Koji.config.strings.health}</div>
           </div>
           <div className="elementBox">
             <div className="upBox" id="moneyBox">$$</div>
-            <div className="downBox" id="moneyName"> Money</div>
+            <div className="downBox" id="moneyName">{Koji.config.strings.money}</div>
           </div>
         </div>
 
+        <div className="sound" onClick={this.soundTrigger}>
+            {
+                this.state.muted ? 
+                <img src={'http://timer00.github.io/Asteroids/imagens/soundOff.png'} alt=""/> 
+                : 
+                <img src={'http://timer00.github.io/Asteroids/imagens/soundOn.png'} alt=""/>
+            }
+        </div>
+
         <audio id="pew">
-          <source src={pew} type="audio/mp3"/>
+          <source src={'http://timer00.github.io/Asteroids/sounds/pew.mp3'} type="audio/mp3"/>
         </audio>
         <audio id="bgMusic" loop>
-          <source src={bgMusic} type="audio/mp3"/>
+          <source src={'http://timer00.github.io/Asteroids/sounds/bgMusic.mp3'} type="audio/mp3"/>
         </audio>
         <audio id="hitSound">
-          <source src={hitSound} type="audio/mp3"/>
+          <source src={'http://timer00.github.io/Asteroids/sounds/hitSound.mp3'} type="audio/mp3"/>
         </audio>
         <audio id="hitSound2">
-          <source src={hitSound2} type="audio/mp3"/>
+          <source src={'http://timer00.github.io/Asteroids/sounds/hitSound2.mp3'} type="audio/mp3"/>
         </audio>
         <audio id="hitSound3">
-          <source src={hitSound3} type="audio/mp3"/>
+          <source src={'http://timer00.github.io/Asteroids/sounds/hitSound3.mp3'} type="audio/mp3"/>
         </audio>
         <audio id="healingSound">
-          <source src={healingSound} type="audio/mp3"/>
+          <source src={'http://timer00.github.io/Asteroids/sounds/healingSound.mp3'} type="audio/mp3"/>
         </audio>
       </div>
     );
